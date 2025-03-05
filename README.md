@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+--
 
-## Getting Started
+1. npx create-next-app@latest next_auth_wwl
+2. go to vercel --> create a new postgres database
+   overview --> storage --> create database --> neon (severless postgres)
+   --> continue --> database name: ver_neo_auth_wwl_database --> create
+3. upload next_auth_wwl project to github
+   --> connect github hosted project to vercel
+   --> connect postgres database to our project on our local host
+   (git remote add origin https://github.com/wwldavid/next_auth_wwl.git
+   git branch -M main
+   git push -u origin main)
+4. go to vercel
+   overview --> add new project --> import (next_auth_wwl) --> deploy
+   go to ver_neo_auth_wwl_database
+   connect project --> next_auth-wwl
+5. pnpm add -g vercel
+   vercel link
+6. vercel env pull .env.development.local (making latest environment variables available to our project locally)
+7. pnpm add bcryptjs next-auth
+   （import bcrypt from "bcryptjs"）
 
-First, run the development server:
+--
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+8. login and register
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-- create a user table for storing user data
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+9.  vercel
+    ver_neo_auth_wwl_database --> open in neon --> SQL Editor
+    CREATE TABLE users(
+    id SERIAL PRIMARY key,
+    email TEXT NOT null,
+    password TEXT NOT null
+    );
+    ALTER TABLE users
+    ADD constraint unique_email UNIQUE (email);
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+--
 
-## Learn More
+10. pnpm install @neondatabase/serverless
 
-To learn more about Next.js, take a look at the following resources:
+-- login
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+at the end of .env.development.local
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="----"
+openssl rand -base64 32
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+app>api>auth>[...nextauth]>route.ts
+session: { stratety: "jwt" }
 
-## Deploy on Vercel
+-- middleware
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-- Vercel
+Vercel --> next_auth_wwl --> Settings --> Environment Variables --> add :
+Key: NEXTAUTH_URL
+Value: https://next_auth_wwl.vercel.app/
+Key: NEXTAUTH_SECRET
+Value: ----
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+--
