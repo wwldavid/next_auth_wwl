@@ -13,7 +13,7 @@ export default function Nav({session}:{session: Session | null}){
         <div className="nav-container">
           <nav className="nav-content">
            { !!session && <Logout /> }
-           { !session && <Link href="/login"> Login </Link> }
+           { !session && <Link href="/login"> Login / Register </Link> }
           </nav>
        </div>
       )
