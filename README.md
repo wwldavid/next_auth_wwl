@@ -59,4 +59,7 @@ Value: https://next_auth_wwl.vercel.app/
 Key: NEXTAUTH_SECRET
 Value: ----
 
---
+-- Add Google and GitHub login functionality
+
+11. pnpm add next-auth
+12. .env.local add new environment variables

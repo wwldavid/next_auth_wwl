@@ -1,6 +1,8 @@
 
 import NextAuth from "next-auth";
 import CredentialsProvider  from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";      
+import GitHubProvider from "next-auth/providers/github"; 
 import { compare } from "bcryptjs";
 
 import { neon } from '@neondatabase/serverless';
@@ -40,7 +42,18 @@ const handler = NextAuth({
 
       return null; 
     }
-  })]
+  }),
+
+  GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID,  
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,  
+  }),
+
+  GitHubProvider({
+    clientId: process.env.GITHUB_CLIENT_ID,  
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,  
+  }),
+]
 });
 
 export {handler as GET, handler as POST};
