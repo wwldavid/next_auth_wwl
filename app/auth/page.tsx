@@ -44,9 +44,9 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-20">
-      <h2 className="text-2xl font-bold mb-4">{isRegister ? "Register" : "Login"}</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 mx-auto max-w-md">
+    <div className="flex flex-col items-center ">
+      <h2 className="text-2xl font-bold mb-4">{isRegister ? "Register" : "Log In"}</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
         <input
           name="email"
           className="border border-teal-500 text-black py-2 px-4 rounded"
@@ -61,13 +61,13 @@ export default function AuthPage() {
           placeholder="Password"
           required
         />
-        <button type="submit" className="bg-teal-500 text-white py-2 px-4 rounded hover:bg-teal-600 transition">
-          {isRegister ? "Register" : "Login"}
+        <button type="submit" className="bg-teal-500 text-white py-2 px-4 rounded hover:bg-teal-00 transition">
+          {isRegister ? "Register" : "Log In"}
         </button>
       </form>
 
       {!isRegister && (
-        <div className="flex flex-col gap-2 mx-auto max-w-md">
+        <div className="flex flex-col gap-2 w-full border-gray-500 ">
           <button onClick={() => signIn("google")} className="bg-white text-black border border-teal-500 py-2 px-4 rounded hover:bg-teal-100 mt-4">
             Using Google Login
           </button>
@@ -79,7 +79,7 @@ export default function AuthPage() {
 
       <p className="mt-4">
         {isRegister ? "Already having accout?" : "Without account?"}{" "}
-        <button onClick={() => setIsRegister(!isRegister)} className="text-teal-500 underline border border-red-500">
+        <button onClick={() => setIsRegister(!isRegister)} className="text-teal-500 border border-b-emerald-700 px-4">
           {isRegister ? "to login " : "to register"}
         </button>
       </p>
